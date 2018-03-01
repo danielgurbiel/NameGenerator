@@ -6,17 +6,12 @@ random name
 */
 package namegenerator;
 
-/**
- *
- * @author Daniel
- */
 public class NameGenerator {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("Hello! This is name generator!");
+        DataBase db = new DataBase("SELECT name FROM names");
+        
     }
     
 }
