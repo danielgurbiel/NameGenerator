@@ -39,10 +39,8 @@ public class DataBase {
                     System.out.println("SQLException: " + exception.getMessage());
                     System.out.println("SQLState: " + exception.getSQLState());
                     System.out.println("VendorError: " + exception.getErrorCode());
-                }
-        
+                } 
     }
- 
         
         static void showDataFromBase(ResultSet rs){
                 try{
