@@ -48,10 +48,6 @@ public class DataBase {
                 try{
                 dataFromBase = rs.getString("name");
                 System.out.println(dataFromBase);
-               /* dataFromBase = rs.getString(2);
-                System.out.println(dataFromBase + " ");
-                dataFromBase = rs.getString(3);
-                System.out.println(dataFromBase);*/
                 }catch(SQLException e) {
                         e.printStackTrace();
                 }
