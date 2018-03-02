@@ -1,4 +1,4 @@
-
+//CHANGE connect to function not constructor
 package namegenerator;
 import java.sql.*;
 import java.sql.Connection;
@@ -14,11 +14,12 @@ public class DataBase {
     Statement stmt;
     ResultSet rs;
     
-    public DataBase(String query){
+    public DataBase(){
         URLConnection = "jdbc:mysql://localhost:3306/name_generator";
-        this.query = query;
-        connection = null;
-
+        connection = null;     
+    }
+        
+    public void getDataFromBase(String query){
         try {
             connection = DriverManager.getConnection(URLConnection, "root", "");
             Class.forName("com.mysql.jdbc.Driver");
@@ -26,7 +27,7 @@ public class DataBase {
             rs = stmt.executeQuery(query);
        
                         while (rs.next()) {
-                                showDataFromBase(rs);
+                                showDataFromBase(rs, query);
                         }
                         connection.close();
                 }
@@ -41,9 +42,14 @@ public class DataBase {
                     System.out.println("VendorError: " + exception.getErrorCode());
                 } 
     }
-        
-        static void showDataFromBase(ResultSet rs){
-                try{
+            
+            
+            
+            
+            
+            
+    public void showDataFromBase(ResultSet rs, String query){
+            try{
                 dataFromBase = rs.getString("name");
                 System.out.println(dataFromBase);
                 }catch(SQLException e) {
