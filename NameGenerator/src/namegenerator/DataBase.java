@@ -1,4 +1,3 @@
-//CHANGE connect to function not constructor
 package namegenerator;
 import java.sql.*;
 import java.sql.Connection;
