@@ -13,28 +13,21 @@ public class DataBase {
     Statement stmt;
     ResultSet rs;
     
-    public DataBase(){
+    public DataBase() throws SQLException, ClassNotFoundException{
         URLConnection = "jdbc:mysql://localhost:3306/name_generator";
         connection = null;     
+        connection = DriverManager.getConnection(URLConnection, "root", "");
+        Class.forName("com.mysql.jdbc.Driver");
+        stmt = connection.createStatement();
     }
         
     public void getDataFromBase(String query){
         try {
-            connection = DriverManager.getConnection(URLConnection, "root", "");
-            Class.forName("com.mysql.jdbc.Driver");
-            stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
-       
                         while (rs.next()) {
-                                showDataFromBase(rs, query);
-                        }
-                        connection.close();
-                }
-
-                catch(ClassNotFoundException exception) {
-                        System.out.println("Error driver!");
-                }
- 
+                                showDataFromBase(query);
+                        }  
+                } 
                 catch(SQLException exception) {
                     System.out.println("SQLException: " + exception.getMessage());
                     System.out.println("SQLState: " + exception.getSQLState());
@@ -42,18 +35,22 @@ public class DataBase {
                 } 
     }
             
-            
-            
-            
-            
-            
-    public void showDataFromBase(ResultSet rs, String query){
-            try{
-                dataFromBase = rs.getString("name");
-                System.out.println(dataFromBase);
-                }catch(SQLException e) {
-                        e.printStackTrace();
-                }
-        }
+         
+    public void showDataFromBase(String query) throws SQLException{
+        rs = stmt.executeQuery(query);
+        while(rs.next()){
+            dataFromBase = rs.getString("name");
+            System.out.println(dataFromBase);
+        }     
+    }
+    
+    public void addToDataBase(String query) throws SQLException{
+        PreparedStatement prepStatement;
+        prepStatement = connection.prepareStatement(query);
+    }
+    
+    public void closeConnection() throws SQLException{
+        connection.close();
+    }
 }
               
