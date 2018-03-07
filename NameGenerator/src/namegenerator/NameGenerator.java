@@ -24,33 +24,40 @@ public class NameGenerator {
            switch(option){
                case '1':{
                    System.out.println("All names:");
-                   db.showDataFromBase("SELECT name FROM names");
+                   db.showDataFromBase("SELECT * FROM _all");
                    System.out.println();
                    break;
                }
                
                case '2':{
                    System.out.println("Names for man: ");
-                   db.showDataFromBase("SELECT name FROM names WHERE sex = 1");
+                   db.showDataFromBase("SELECT * FROM men");
                    System.out.println();
                    break;
                }
                
                case '3':{
                    System.out.println("Names for women: ");
-                   db.showDataFromBase("SELECT name FROM names WHERE sex = 0");
+                   db.showDataFromBase("SELECT * FROM women");
                    System.out.println();
                    break;
                }
                
                case '4':{
                    System.out.println("Random name for man: ");
-                   
-                   
+                   db.showDataFromBase("SELECT * FROM men ORDER BY RAND() LIMIT 1");
+                   System.out.println();
                    break;
                }
                
                case '5':{
+                   System.out.println("Random name for man: ");
+                   db.showDataFromBase("SELECT * FROM women ORDER BY RAND() LIMIT 1");
+                   System.out.println();
+                   break;
+               }
+               
+               case '6':{
                    System.out.print("Podaj imię do wprowadzenia: ");
                    String name = input.nextLine();
                    System.out.print("Podaj płeć: (1-M, 0-W): ");
@@ -69,6 +76,7 @@ public class NameGenerator {
             System.out.println("2. Show names for men");
             System.out.println("3. Show names for women");
             System.out.println("4. Random name for man");
+            System.out.println("5. Random name for woman");
             System.out.println("q - EXIT"); 
         }
     
