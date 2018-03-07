@@ -6,12 +6,11 @@ import java.sql.SQLException;
  
 public class DataBase {
     
-    String URLConnection;
-    static String dataFromBase;
-    String query;
-    Connection connection;
-    Statement stmt;
-    ResultSet rs;
+    private String URLConnection;
+    private static String dataFromBase;
+    private static Connection connection;
+    private static Statement stmt;
+    private ResultSet rs;
     
     public DataBase() throws SQLException, ClassNotFoundException{
         URLConnection = "jdbc:mysql://localhost:3306/name_generator";
@@ -20,21 +19,6 @@ public class DataBase {
         Class.forName("com.mysql.jdbc.Driver");
         stmt = connection.createStatement();
     }
-        
-    public void getDataFromBase(String query){
-        try {
-            rs = stmt.executeQuery(query);
-                        while (rs.next()) {
-                                showDataFromBase(query);
-                        }  
-                } 
-                catch(SQLException exception) {
-                    System.out.println("SQLException: " + exception.getMessage());
-                    System.out.println("SQLState: " + exception.getSQLState());
-                    System.out.println("VendorError: " + exception.getErrorCode());
-                } 
-    }
-            
          
     public void showDataFromBase(String query) throws SQLException{
         rs = stmt.executeQuery(query);
@@ -44,13 +28,12 @@ public class DataBase {
         }     
     }
     
-    public void addToDataBase(String query) throws SQLException{
-        PreparedStatement prepStatement;
-        prepStatement = connection.prepareStatement(query);
+    public static void addToDataBase(String name, int sex) throws SQLException {
+        System.out.println(sex);
+        stmt.executeUpdate("INSERT INTO `names` (`id`, `name`, `sex`) VALUES (NULL, '" + name + "' , '" + sex + "')");
     }
     
     public void closeConnection() throws SQLException{
         connection.close();
     }
 }
-              
