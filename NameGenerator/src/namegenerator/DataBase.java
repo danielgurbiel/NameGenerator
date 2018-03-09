@@ -28,9 +28,8 @@ public class DataBase {
         }     
     }
     
-    public static void addToDataBase(String name, int sex) throws SQLException {
-        System.out.println(sex);
-        stmt.executeUpdate("INSERT INTO `names` (`id`, `name`, `sex`) VALUES (NULL, '" + name + "' , '" + sex + "')");
+    public static void addToDataBase(String name, String sex) throws SQLException {
+            stmt.executeUpdate("INSERT INTO `names` (`id`, `name`, `sex`) VALUES (NULL, '" + name + "' , '" + sex + "')");
     }
     
     public void closeConnection() throws SQLException{

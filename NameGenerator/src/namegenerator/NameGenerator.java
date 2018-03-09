@@ -1,16 +1,10 @@
-/*
-TODO
-add names to db
-*/
 package namegenerator;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class NameGenerator {
-    private static char option;
-    private static Scanner input = new Scanner(System.in);
-    private static String line;  
+    private static String option;
+    private static Scanner input = new Scanner(System.in);  
     private static DataBase db;
     
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -18,47 +12,56 @@ public class NameGenerator {
         db = new DataBase();
         
         do{      
-            showOptions();
-            line = input.nextLine();
-            option = line.charAt(0);
-            
+           showOptions();
+           option = input.nextLine();
+           option = option.substring(0, 1);
            switch(option){
-               case '1':{
+               case "1":{
                    option("All names:", "SELECT * FROM _all ORDER BY name");
                    break;
                }
                
-               case '2':{
+               case "2":{
                    option("Names for man:", "SELECT * FROM men ORDER BY name");
                    break;
                }
                
-               case '3':{
+               case "3":{
                    option("Names for women:", "SELECT * FROM women ORDER BY name");
                    break;
                }
                
-               case '4':{
+               case "4":{
                    option("Random name for man:", "SELECT * FROM men ORDER BY RAND() LIMIT 1");
                    break;
                }
                
-               case '5':{
+               case "5":{
                    option("Random name for woman:", "SELECT * FROM women ORDER BY RAND() LIMIT 1");
                    break;
                }
                
-               case '6':{
+               case "6":{
                    addToDB();
                    break;
                }
+               
+               case "q":{
+                   System.out.println("GOOD BYE!");
+                   break;
+               }
+               
+               default:{
+                   System.out.println("Wrong number!");
+               }
             
             }    
-        } while (option!='q');
+        } while (!option.equals("q"));
         db.closeConnection();
     } 
     
     public static void option(String text, String query) throws SQLException{
+        System.out.println();
         System.out.println(text);
         db.showDataFromBase(query);
         System.out.println(); 
@@ -70,12 +73,18 @@ public class NameGenerator {
     
     public static String inputName(){
         System.out.print("Insert name: ");
-        return input.nextLine();
+        String name = input.nextLine().trim();
+        String tmp = name.substring(0, 1).toUpperCase();
+        return tmp + name.substring(1);
     }
     
-    public static int inputSex(){
-        System.out.print("Chose sex: (0-woman / 1-man): ");
-        return input.nextInt();
+    public static String inputSex(){
+        String sex;
+        do{
+            System.out.print("Chose sex: (0-woman / 1-man): ");
+            sex = input.nextLine();
+        } while (!sex.equals("1") && !sex.equals("0"));
+        return sex;
     }
      
     public static void showOptions(){
@@ -86,6 +95,7 @@ public class NameGenerator {
         System.out.println("5. Random name for woman");
         System.out.println("6. Add name");
         System.out.println("q - EXIT"); 
+        System.out.println();
     }   
 }
 
