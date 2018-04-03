@@ -1,15 +1,12 @@
 package namegenerator;
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
  
 public class DataBase {
     
     private String URLConnection;
-    private static String dataFromBase;
-    private static Connection connection;
-    private static Statement stmt;
+    private String dataFromBase;
+    private Connection connection;
+    private Statement stmt;
     private ResultSet rs;
     
     public DataBase() throws SQLException, ClassNotFoundException{
@@ -28,7 +25,7 @@ public class DataBase {
         }     
     }
     
-    public static void addToDataBase(String name, String sex) throws SQLException {
+    public void addToDataBase(String name, String sex) throws SQLException {
             stmt.executeUpdate("INSERT INTO `names` (`id`, `name`, `sex`) VALUES (NULL, '" + name + "' , '" + sex + "')");
     }
     
